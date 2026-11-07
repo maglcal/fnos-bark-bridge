@@ -5,3 +5,4 @@ icons/
 .env
 __pycache__/
 docker-compose.local.yml
+nas-deploy/
