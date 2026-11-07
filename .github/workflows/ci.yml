@@ -1,0 +1,33 @@
+# 最小 CI：Python 语法、Compose YAML、密钥泄漏扫描
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python 语法检查
+        run: python -m py_compile app.py
+
+      - name: Compose YAML 校验
+        run: |
+          pip install -q pyyaml
+          python -c "import yaml; yaml.safe_load(open('docker-compose.yml')); print('yaml ok')"
+
+      - name: 密钥泄漏扫描
+        run: |
+          if grep -rnE "dckr_pat_|gho_[A-Za-z0-9]{20}|ghp_[A-Za-z0-9]{20}|rbx_[a-f0-9]{20}|BEGIN (RSA|OPENSSH|EC) PRIVATE" --exclude-dir=.github . ; then
+            echo "::error::疑似密钥/私钥泄漏，请检查上方匹配"
+            exit 1
+          fi
+          echo "clean"

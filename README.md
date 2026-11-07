@@ -20,7 +20,7 @@
 # docker-compose.yml
 services:
   fnos-bark-bridge:
-    image: maglcal/fnos-bark-bridge:latest
+    image: maglcal/fnos-bark-bridge:1.0.1      # 推荐固定版本号；latest 跟随最新发布
     container_name: fnos-bark-bridge
     restart: unless-stopped
     ports:
@@ -41,6 +41,13 @@ fnOS 侧配置：**系统设置 → 系统通知 → 通知设置 → 新增 Web
 http://<NAS内网IP>:8081/hook/<TOKEN>
 ```
 
+## fnOS 侧配置要点（踩坑必读）
+
+- **令牌必须拼在 URL 路径里**（`/hook/<TOKEN>`）。fnOS 弹窗里的**「密钥」字段是给钉钉/飞书/企业微信加签用的，本服务不需要填**——如果只把令牌填进「密钥」而 URL 用 `/hook/`，点「测试发送」会报「测试消息发送失败」（服务端实际返回 401）。
+- **端口可自定义**：如宿主机想用 9932，compose 写 `9932:8081`，Webhook 地址相应写 `http://<NAS内网IP>:9932/hook/<TOKEN>`。
+- **测试失败排查**：① `curl http://<NAS内网IP>:<端口>/health` 确认服务在线；② `curl -X POST "http://<NAS内网IP>:<端口>/hook/<TOKEN>" -d '{}'` 确认令牌正确；③ 确认地址是 `http://` 而非 `https://`（本服务是纯 HTTP，用 https 会在日志里看到 TLS 垃圾字节和 400）。
+- 机器人配好后，还要在 **告警类型** 勾选推送项、**推送规则** 里把机器人选为接收对象，系统告警才会真正推送。
+
 ## 环境变量
 
 | 变量 | 必填 | 说明 |
@@ -59,6 +66,11 @@ http://<NAS内网IP>:8081/hook/<TOKEN>
 ## 关于推送图标的小知识
 
 Bark 的 `icon` 在 iOS 端会作为 `INSendMessageIntent` 的发件人头像渲染，**iOS 会把它圆形裁切**。如果你的图标主体顶满画布四角（比如带角的 logo），圆裁会切掉边角。解决办法：把图标放进一个带 ~18% 边距的正方形画布再使用。
+
+## 版本历史
+
+- **1.0.1**：修复二进制探测流量（TLS 握手等）造成的日志乱码（不可打印字符统一转义）；兼容 `HEAD` 探测（原 501 改为正常应答）
+- **1.0**：首个版本
 
 ## 许可证
 
