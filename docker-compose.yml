@@ -1,0 +1,17 @@
+services:
+  fnos-bark-bridge:
+    build: .
+    image: maglcal/fnos-bark-bridge:latest
+    container_name: fnos-bark-bridge
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - BARK_SERVER=https://bark.example.com   # 你的 Bark 服务器地址
+      - BARK_KEY=<BARK_KEY>                    # Bark 设备 Key
+      - BARK_GROUP=飞牛NAS                     # 通知分组
+      - BARK_LEVEL=timeSensitive               # 可选: passive/active/timeSensitive/critical
+      - BARK_SOUND=                            # 可选: 如 birdsong / minuet
+      - BARK_ICON=https://example.com/icon.png # 推送图标 URL（需公网可达）
+      - TOKEN=<TOKEN>                          # fnOS Webhook 填 http://<NAS_IP>:8081/hook/<TOKEN>
+      - DEFAULT_TITLE=飞牛NAS通知
