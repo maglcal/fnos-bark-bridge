@@ -26,7 +26,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - BARK_SERVER=https://bark.example.com   # 你的 Bark 服务器
+      - BARK_SERVER=https://api.day.app        # Bark 服务器（官方公共；自建 bark-server 亦可）
       - BARK_KEY=your-device-key               # Bark 设备 Key
       - BARK_GROUP=飞牛NAS                     # 通知分组（可选）
       - BARK_LEVEL=timeSensitive               # passive/active/timeSensitive/critical（可选）
@@ -52,7 +52,7 @@ http://<NAS内网IP>:8081/hook/<TOKEN>
 
 | 变量 | 必填 | 说明 |
 |---|---|---|
-| `BARK_SERVER` | 是 | Bark 服务器地址，如 `https://your-bark.example.com` |
+| `BARK_SERVER` | 是 | Bark 服务器地址，如 `https://api.day.app`（官方公共服务器） |
 | `BARK_KEY` | 是 | Bark 设备 Key |
 | `BARK_GROUP` | 否 | 通知分组 |
 | `BARK_SOUND` | 否 | 铃声，如 `birdsong` |

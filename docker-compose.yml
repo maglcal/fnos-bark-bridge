@@ -7,7 +7,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - BARK_SERVER=https://bark.example.com   # 你的 Bark 服务器地址
+      - BARK_SERVER=https://api.day.app        # Bark 服务器地址（官方公共；自建 bark-server 亦可）
       - BARK_KEY=<BARK_KEY>                    # Bark 设备 Key
       - BARK_GROUP=飞牛NAS                     # 通知分组
       - BARK_LEVEL=timeSensitive               # 可选: passive/active/timeSensitive/critical
