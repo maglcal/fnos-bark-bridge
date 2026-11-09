@@ -74,7 +74,9 @@ Bark 的 `icon` 在 iOS 端会作为 `INSendMessageIntent` 的发件人头像渲
 
 ## 许可证
 
-[MIT](LICENSE) © 2026 许诺
+[Elastic License 2.0](LICENSE) © 2026 许诺
+
+> 源码可见、可自由使用与修改，但**不得将本软件作为托管服务提供给第三方**（详见 LICENSE）。自 v1.0.2 起许可证由 MIT 变更为 Elastic License 2.0；此前以 MIT 发布的版本授权不受影响。
 
 > 飞牛OS / fnOS 为飞牛公司的商标，Bark 为 Finb 的项目。本项目与其均为非官方合作关系，商标归各自所有者。
 
