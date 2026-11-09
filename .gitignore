@@ -6,3 +6,9 @@ icons/
 __pycache__/
 docker-compose.local.yml
 nas-deploy/
+
+# 核心源码与加壳工具，仅本地保留，不入库
+app.py
+tools/
+Dockerfile.packed
+app_packed.py

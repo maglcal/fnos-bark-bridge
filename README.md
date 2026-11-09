@@ -8,7 +8,7 @@
 
 ## 特性
 
-- **零依赖**：纯 Python 标准库，单文件（~10KB），基于 `python:3.12-alpine`，镜像轻量
+- **零依赖**：纯 Python 标准库实现，基于 `python:3.12-alpine`，镜像轻量
 - **多格式解析**：fnOS 通用格式 / 企业微信（text、markdown）/ 钉钉（text、markdown）/ 飞书（text、markdown、post、interactive 卡片）payload 自动识别
 - **令牌鉴权**：`/hook/<token>` 路径、`?token=` 查询、`X-Bark-Token` 请求头三种传法
 - **DRY_RUN 调试模式**：只打印不推送，便于验证 payload 解析
@@ -20,7 +20,7 @@
 # docker-compose.yml
 services:
   fnos-bark-bridge:
-    image: maglcal/fnos-bark-bridge:1.0.1      # 推荐固定版本号；latest 跟随最新发布
+    image: maglcal/fnos-bark-bridge:1.0.2      # 推荐固定版本号；latest 跟随最新发布
     container_name: fnos-bark-bridge
     restart: unless-stopped
     ports:
@@ -69,6 +69,7 @@ Bark 的 `icon` 在 iOS 端会作为 `INSendMessageIntent` 的发件人头像渲
 
 ## 版本历史
 
+- **1.0.2**：许可证变更为 Elastic License 2.0；核心代码经保护处理后编入镜像（镜像内不含明文源码），源码不再公开分发
 - **1.0.1**：修复二进制探测流量（TLS 握手等）造成的日志乱码（不可打印字符统一转义）；兼容 `HEAD` 探测（原 501 改为正常应答）
 - **1.0**：首个版本
 
@@ -76,7 +77,7 @@ Bark 的 `icon` 在 iOS 端会作为 `INSendMessageIntent` 的发件人头像渲
 
 [Elastic License 2.0](LICENSE) © 2026 许诺
 
-> 源码可见、可自由使用与修改，但**不得将本软件作为托管服务提供给第三方**（详见 LICENSE）。自 v1.0.2 起许可证由 MIT 变更为 Elastic License 2.0；此前以 MIT 发布的版本授权不受影响。
+> 可自由使用，但**不得将本软件作为托管服务提供给第三方**（详见 LICENSE）。核心源码自 v1.0.2 起不再公开分发，以处理后的镜像形式提供（Docker Hub：`maglcal/fnos-bark-bridge`），部署只需下方 compose 文件；如需二次开发请提 Issue 沟通。自 v1.0.2 起许可证由 MIT 变更为 Elastic License 2.0；此前以 MIT 发布的版本授权不受影响。
 
 > 飞牛OS / fnOS 为飞牛公司的商标，Bark 为 Finb 的项目。本项目与其均为非官方合作关系，商标归各自所有者。
 

@@ -1,7 +1,6 @@
 services:
   fnos-bark-bridge:
-    build: .
-    image: maglcal/fnos-bark-bridge:latest
+    image: maglcal/fnos-bark-bridge:1.0.2
     container_name: fnos-bark-bridge
     restart: unless-stopped
     ports:
